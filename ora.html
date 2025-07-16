@@ -178,10 +178,69 @@
   border-radius: 50%;
 }
 
+.telon {
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: telonBackgroundCycle 20s infinite;
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+
+  .telon.oculto {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .circle-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid white;
+    box-shadow: 0 0 20px white;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+  }
+
+  .circle-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @keyframes telonBackgroundCycle {
+    0% { background-color: #2c3e50; }
+    25% { background-color: #1c2833; }
+    50% { background-color: #273746; }
+    75% { background-color: #212f3d; }
+    100% { background-color: #2c3e50; }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 20px white;
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px white;
+    }
+  }
 
   </style>
 </head>
 <body>
+
+<div id="telon" class="telon">
+  <div class="circle-container" onclick="cerrarTelon()">
+    <img src="alan.jpg" alt="Entrar">
+  </div>
+</div>
 
   <header>
     <div class="logo">
@@ -198,7 +257,7 @@
     </div>
 
     <div class="panel" onclick="incrementScore(1)">
-      <div class="panel-label"> Crusenos </div>
+      <div class="panel-label"> Crucenos </div>
       <img src="crusenos-removebg-preview.png">
       <div class="panel-score" id="score1">0</div>
     </div>
@@ -230,6 +289,11 @@ function resetScores() {
     document.getElementById(`score${i}`).textContent = 0;
   }
 }
+
+function cerrarTelon() {
+    const telon = document.getElementById("telon");
+    telon.classList.add("oculto");
+  }
   </script>
 
 <div style="margin-top: 40px;">
